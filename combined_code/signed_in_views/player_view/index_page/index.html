@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#000000" />
+  <!--
+      manifest.json provides metadata used when your web app is installed on a
+      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
+    -->
+  <!--
+      Notice the use of %PUBLIC_URL% in the tags above.
+      It will be replaced with the URL of the `public` folder during the build.
+      Only files inside the `public` folder can be referenced from the HTML.
+
+      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
+      work correctly both with client-side routing and a non-root public URL.
+      Learn how to configure a non-root public URL by running `npm run build`.
+    -->
+  <link rel="stylesheet" href="./index.css">
+  <script src="./index.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
+  <title>The Beer Game</title>
+</head>
+
+<body>
+  <div id='sidebar' onmouseenter='openNav()' onmouseleave="closeNav()">
+    <div id='container_user_options' class='sidebar_options'>
+      <h1 class='sidebar_options'>My options</h1>
+      <a href="">
+        <h2 class='sidebar_options'>My Games</h2>
+      </a>
+      <a href="">
+        <h2 class='sidebar_options'>My Instructors</h2>
+      </a>
+      <a href="">
+        <h2 class='sidebar_options'>My Logs</h2>
+      </a>
+    </div>
+    <div id='container_site_options' class='sidebar_options'>
+      <h1 class='sidebar_options'>Site options</h1>
+      <a href="" onclick="game_instructions()">
+        <h2 class='sidebar_options'>Game Instructions</h2>
+      </a>
+      <a href="">
+        <h2 class='sidebar_options'>Data Policy</h2>
+      </a>
+      <a href="">
+        <h2 class='sidebar_options'>Settings</h2>
+      </a>
+    </div>
+  </div>
+  <nav class="navbar navbar-expand-lg navbar-light bg-dark fixed-top side_shift" id="navbar">
+    <div id='logo'>
+      <a class="navbar-brand" href="">
+        <h1>The Beer Game</h1>
+      </a>
+    </div>
+    <div id='utilities'>
+      <form class="form-inline my-2 my-lg-0" id='search'>
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" />
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+      </form>
+      <div class="dropdown" id='options' onMouseLeave='cleanup'>
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">
+          Options
+        </button>
+        <div class="dropdown-menu" id='options_drop_down_menu' aria-labelledby="dropdownMenuButton">
+          <a class="dropdown-item" href="#">Logout</a>
+          <a class="dropdown-item" href="#">Sign in as another user</a>
+          <a class="dropdown-item" href="#">Suggestions</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+  </div>
+  <div id='contents'>
+    <div id="accordion" class="side_shift" onmouseenter='respond()' onmouseleave='cleanup()'>
+      <h2>Favourites</h2>
+      <div class="card">
+        <div class="card-header" id="headingOne">
+          <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
+            aria-controls="collapseOne">
+            <h4 class="mb-0">Game 1 Name</h4>
+          </button>
+        </div>
+        <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+          <div class="card-body">
+            <h5>Game details</h5>
+            <ul>
+              <li>
+                <h6>Instructor: {{top3.first['instructor']}}</h6>
+              </li>
+              <li>
+                <h6>Game Duration: {{top3.first['duration']}}</h6>
+              </li>
+              <li>
+                <h6>Role: {{top3.first['role']}}</h6>
+              </li>
+              <li>
+                <h6>Holding Cost: {{top3.first['holding_cost']}}</h6>
+              </li>
+              <li>
+                <h6>Backlog Cost: {{top3.first['backlog_cost']}}</h6>
+              </li>
+            </ul>
+            <h5>Remarks</h5>
+            <a href="">
+              <button class="btn btn-primary play_button" id="more_games">
+                Play
+              </button>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header" id="headingTwo">
+          <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false"
+            aria-controls="collapseTwo">
+            <h4 class="mb-0">Game 2 Name</h4>
+          </button>
+        </div>
+        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+          <div class="card-body">
+            <h5>Game details</h5>
+            <ul>
+              <li>
+                <h6>Instructor: {{top3.second['instructor']}}</h6>
+              </li>
+              <li>
+                <h6>Game Duration: {{top3.second['duration']}}</h6>
+              </li>
+              <li>
+                <h6>Role: {{top3.second['role']}}</h6>
+              </li>
+              <li>
+                <h6>Holding Cost: {{top3.second['holding_cost']}}</h6>
+              </li>
+              <li>
+                <h6>Backlog Cost: {{top3.second['backlog_cost']}}</h6>
+              </li>
+            </ul>
+            <h5>Remarks</h5>
+            <a href="">
+              <button class="btn btn-primary play_button" id="more_games">
+                Play
+              </button>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header" id="headingThree">
+          <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree"
+            aria-expanded="false" aria-controls="collapseThree">
+            <h4 class="mb-0">Game 3 Name</h4>
+          </button>
+        </div>
+        <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+          <div class="card-body">
+            <h5>Game details</h5>
+            <ul>
+              <li>
+                <h6>Instructor: {{top3.third['instructor']}}</h6>
+              </li>
+              <li>
+                <h6>Game Duration: {{top3.third['duration']}}</h6>
+              </li>
+              <li>
+                <h6>Role: {{top3.third['role']}}</h6>
+              </li>
+              <li>
+                <h6>Holding Cost: {{top3.third['holding_cost']}}</h6>
+              </li>
+              <li>
+                <h6>Backlog Cost: {{top3.third['backlog_cost']}}</h6>
+              </li>
+            </ul>
+            <h5>Remarks</h5>
+            <a href="">
+              <button class="btn btn-primary play_button" id="more_games">
+                Play
+              </button>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header" id="headingFour">
+          <h4 class="mb-0">
+            <button class="btn btn-secondary" id="more_games">
+              More games
+            </button>
+          </h4>
+        </div>
+      </div>
+    </div>
+    <div id = 'create_a_game' class = 'side_shift' onmouseenter='glow()' onmouseleave='dim()'>
+      <h1> Create new Game </h1>
+    </div>
+  </div>
+  <div id = 'recent'>
+    <div id = 'activities' class = 'side_shift'>
+      <h1>Recent:</h1>
+      <div class="container-fluid">
+        <h3>Activity title</h3>
+        <p>Message_overview</p>
+        <form action="">
+          <input type="hidden" name="message_id"/>
+          <button type = 'submit' class = 'btn btn-primary'>Details</button>
+        </form>
+      </div>
+      <div class="container-fluid">
+        <h3>Added to a new game</h3>
+        <p>You got added to a new game</p>
+        <form action="">
+          <input type="hidden" name="message_id"/>
+          <button type = 'submit' class = 'btn btn-primary'>Details</button>
+        </form>
+      </div>
+      <div class="container-fluid">
+        <h3>Added to a new game</h3>
+        <h7>You got added to professor A's game</h7>
+        <form action="">
+          <input type="hidden" name="message_id"/>
+          <button type = 'submit' class = 'btn btn-primary'>Details</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

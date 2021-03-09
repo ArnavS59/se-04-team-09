@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#000000" />
+  <!--
+      manifest.json provides metadata used when your web app is installed on a
+      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
+    -->
+  <!--
+      Notice the use of %PUBLIC_URL% in the tags above.
+      It will be replaced with the URL of the `public` folder during the build.
+      Only files inside the `public` folder can be referenced from the HTML.
+
+      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
+      work correctly both with client-side routing and a non-root public URL.
+      Learn how to configure a non-root public URL by running `npm run build`.
+    -->
+  <link rel="stylesheet" href="./my_games.css">
+  <script src="./my_games.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
+  <title>General Template</title>
+</head>
+
+<body>
+  <div id='sidebar' onmouseenter='openNav()' onmouseleave="closeNav()">
+    <div id='container_user_options' class='sidebar_options'>
+      <h1 class='sidebar_options'>My options</h1>
+      <a href="">
+        <h2 class='sidebar_options'>My Games</h2>
+      </a>
+      <a href="">
+        <h2 class='sidebar_options'>My Students</h2>
+      </a>
+      <a href="">
+        <h2 class='sidebar_options'>My Logs</h2>
+      </a>
+    </div>
+    <div id='container_site_options' class='sidebar_options'>
+      <h1 class='sidebar_options'>Site options</h1>
+      <a href="">
+        <h2 class='sidebar_options'>Data Policy</h2>
+      </a>
+      <a href="">
+        <h2 class='sidebar_options'>Settings</h2>
+      </a>
+    </div>
+  </div>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top side_shift" id="navbar">
+    <div id='logo'>
+      <a class="navbar-brand" href="">
+        <h1>The Beer Game</h1>
+      </a>
+    </div>
+    <div id='utilities'>
+      <form class="form-inline my-2 my-lg-0" id='search'>
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" />
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+      </form>
+      <div class="dropdown" id='options' onMouseLeave='cleanup'>
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">
+          Options
+        </button>
+        <div class="dropdown-menu" id='options_drop_down_menu' aria-labelledby="dropdownMenuButton">
+          <a class="dropdown-item" href="#">Logout</a>
+          <a class="dropdown-item" href="#">Sign in as another user</a>
+          <a class="dropdown-item" href="#">Suggestions</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+  </div>
+  <div id = 'content'>
+    <h1 class = 'side_shift'>My Games</h1>
+    <div id="accordion" class="side_shift">
+      <div class="card">
+        <div class="card-header" id="headingOne">
+          <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
+            aria-controls="collapseOne">
+            <h4 class="mb-0">{{game['name']}}</h4>
+          </button>
+        </div>
+        <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+          <div class="card-body">
+            <h5>Game details</h5>
+            <ul>
+              <li>
+                <h6>Game Duration: {{games[0]['duration']}}</h6>
+              </li>
+              <li>
+                <h6>Holding Cost: {{games[0]['holding_cost']}}</h6>
+              </li>
+              <li>
+                <h6>Backlog Cost: {{games[0]['backlog_cost']}}</h6>
+              </li>
+              <li>
+                <h6>Information Delay: {{games[0]['information_delay']}}</h6>
+              </li>
+              <li>
+                <h6>Shipping delay: {{games[0]['shipping_delay']}}</h6>
+              </li>
+              <li>
+                <h6>Wholesaler present: {{games[0]['wholesaler_present']}}</h6>
+              </li>
+              <li>
+                <h6>Distributor present: {{games[0]['distributor_present']}}</h6>
+              </li>
+              <li>
+                <h6>Running : {{games[0]['is_active']}}</h6>
+              </li>
+              <li>
+                <h6>Demand Pattern: {{games[0]['demand_pattern']['name']}}</h6>
+              </li>
+              <li>
+                <h6>Info-sharing: {{games[0]['info_sharing']}}</h6>
+              </li>
+            </ul>
+            <h2>
+              Players
+            </h2>
+            <ul>
+              <li>
+                <h6>
+                  Retailer : {{games[0]['retailer']['name']}}
+                </h6>
+              </li>
+              <!-- {%if wholesaler_present%} -->
+              <li>
+                <h6>
+                  Wholesaler : {{games[0]['wholesaler']['name']}}
+                </h6>
+              </li>
+              <!-- {% endif %}
+              {% if distributor_present %} -->
+              <li>
+                <h6>
+                 Distributor : {{games[0]['distributor']['name']}}
+                </h6>
+              </li>
+              <!-- {% end if%} -->
+              <li>
+                <h6>
+                 Factory : {{games[0]['factory']['name']}}
+                </h6>
+              </li>
+            </ul>
+            <h5>Remarks</h5>
+            <p>
+              {{game['remarks']}}
+            </p>
+            <a href="">
+              <button class="btn btn-primary play_button" id="Edit_params">
+                Edit Params
+              </button>
+            </a>
+            <a href="">
+              <button class="btn btn-danger play_button" id="Edit_params">
+                Pause Game
+              </button>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header" id="headingTwo">
+          <button class="btn btn-link" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true"
+            aria-controls="collapseTwo">
+            <h4 class="mb-0">{{game['name']}}</h4>
+          </button>
+        </div>
+        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+          <div class="card-body">
+            <h5>Game details</h5>
+            <ul>
+              <li>
+                <h6>Game Duration: {{games[1]['duration']}}</h6>
+              </li>
+              <li>
+                <h6>Holding Cost: {{games[1]['holding_cost']}}</h6>
+              </li>
+              <li>
+                <h6>Backlog Cost: {{game[1]['backlog_cost']}}</h6>
+              </li>
+              <li>
+                <h6>Information Delay: {{games[1]['information_delay']}}</h6>
+              </li>
+              <li>
+                <h6>Shipping delay: {{games[1]['shipping_delay']}}</h6>
+              </li>
+              <li>
+                <h6>Wholesaler present: {{games[1]['wholesaler_present']}}</h6>
+              </li>
+              <li>
+                <h6>Distributor present: {{games[1]['distributor_present']}}</h6>
+              </li>
+              <li>
+                <h6>Running : {{games[1]['is_active']}}</h6>
+              </li>
+              <li>
+                <h6>Demand Pattern: {{games[1]['demand_pattern']['name']}}</h6>
+              </li>
+              <li>
+                <h6>Info-sharing: {{games[0]['info_sharing']}}</h6>
+              </li>
+            </ul>
+            <h2>
+              Players
+            </h2>
+            <ul>
+              <li>
+                <h6>
+                  Retailer : {{games[1]['retailer']['name']}}
+                </h6>
+              </li>
+              <!-- {%if wholesaler_present%} -->
+              <li>
+                <h6>
+                  Wholesaler : {{games[1]['wholesaler']['name']}}
+                </h6>
+              </li>
+              <!-- {% endif %}
+              {% if distributor_present %} -->
+              <li>
+                <h6>
+                 Distributor : {{games[1]['distributor']['name']}}
+                </h6>
+              </li>
+              <!-- {% end if%} -->
+              <li>
+                <h6>
+                 Factory : {{games[1]['factory']['name']}}
+                </h6>
+              </li>
+            </ul>
+            <h5>Remarks</h5>
+            <p>
+              {{game['remarks']}}
+            </p>
+            <a href="">
+              <button class="btn btn-primary play_button" id="Edit_params">
+                Edit Params
+              </button>
+            </a>
+            <a href="">
+              <button class="btn btn-danger play_button" id="Edit_params">
+                Pause Game
+              </button>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Some automation if django is used -->
+
+    <!-- <div id="accordion" class="" onmouseenter='glow(event)' onmouseleave='dim(event)'>
+      {% for game in allowed_games%}
+      <div class="card">
+        <div class="card-header" id="heading{{game['id']}}">
+          <button class="btn btn-link" data-toggle="collapse" data-target="#collapse{{game['id']}}" aria-expanded="true"
+            aria-controls="collapse{{game['id']}}">
+            <h4 class="mb-0">{{game['name']}}</h4>
+          </button>
+        </div>
+        <div id="collapse{{game['id']}}" class="collapse" aria-labelledby="heading{{game['id']}}" data-parent="#accordion">
+          <div class="card-body">
+            <h5>Game details</h5>
+            <ul>
+              <li>
+                <h6>Instructor: {{game['instructor']}}</h6>
+              </li>
+              <li>
+                <h6>Game Duration: {{game['duration']}}</h6>
+              </li>
+              <li>
+                <h6>Role: {{game['role']}}</h6>
+              </li>
+              <li>
+                <h6>Holding Cost: {{game['holding_cost']}}</h6>
+              </li>
+              <li>
+                <h6>Backlog Cost: {{game['backlog_cost']}}</h6>
+              </li>
+              <li>
+                <h6>Information Delay: {{game['information_delay']}}</h6>
+              </li>
+              <li>
+                <h6>Shipping delay: {{game['shipping_delay']}}</h6>
+              </li>
+              <li>
+                <h6>Wholesaler present: {{game['wholesaler_present']}}</h6>
+              </li>
+              <li>
+                <h6>Distributor present: {{game['distributor_present']}}</h6>
+              </li>
+              <li>
+                <h6>Running : {{game['is_active']}}</h6>
+              </li>
+              <li>
+                <h6>Demand Pattern: {{game['demand_pattern']['name']}}</h6>
+              </li>
+              <li>
+                <h6>Info-sharing: {{game['info_sharing']}}</h6>
+              </li>
+            </ul>
+            <h2>
+              Players
+            </h2>
+            <ul>
+              <li>
+                <h6>
+                  Retailer : {{game['retailer']['name']}}
+                </h6>
+              </li>
+              <li>
+                {% if game%}
+                <h6>
+                  Wholesaler : {{game['wholesaler']['name']}}
+                </h6>
+              </li>
+              <li>
+                <h6>
+                 Distributor : {{game['distributor']['name']}}
+                </h6>
+              </li>
+              <li>
+                <h6>
+                 Factory : {{game['factory']['name']}}
+                </h6>
+              </li>
+            </ul>
+            <h5>Remarks</h5>
+            <p>
+              {{game['remarks']}}
+            </p>
+            {% if game['is_running']%}
+            <a href="">
+              <button class="btn btn-primary pause_button id="more_games">
+                Pause Game
+              </button>
+            </a>
+            {% else %}
+              <button class="btn btn-primary pause_button id="more_games">
+                Edit Params
+              </button>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div> -->
+  </div>
+</body>
+
+</html>

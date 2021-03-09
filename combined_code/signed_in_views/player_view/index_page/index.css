@@ -1,0 +1,251 @@
+@keyframes expand {
+  0% {
+    background-color: grey;
+    width: 2%;
+  }
+  50% {
+    background-color: grey;
+    width: 25%;
+  }
+  100% {
+    background-color: black;
+    width: 25%;
+  }
+}
+
+@keyframes shrink{
+  0%{
+    width: 25%;
+    background-color: black;
+  }
+  100%{
+    width: 2%;
+    background-color: gray;
+  }
+}
+
+
+@keyframes shift_left {
+  0% {
+    margin-left: 0px;
+    opacity: 1;
+  }
+  100% {
+    margin-left: 25%;
+    opacity: 0.5;
+  }
+}
+
+@keyframes shift_back {
+  0% {
+    margin-left: 25%;
+    opacity: 0.5;
+  }
+  100% {
+    margin-left: 0px;
+    opacity: 1;
+  }
+}
+
+
+@keyframes dim{
+  from{
+    opacity: 1;
+  }to{
+    opacity: 0.5;
+    margin-left: 0%;
+  }
+}
+
+@keyframes glow{
+  from{
+    opacity: 0.5
+  }to{
+    opacity: 1;
+  }
+}
+
+body{
+  background-image: url('./beers.jpg');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  overflow-x: hidden;
+  overflow-y: initial;
+}
+
+#logo{
+  position: absolute;
+  left: 5%;
+  top: 5%;
+}
+
+#logo h1{
+  color: gold;
+}
+
+#utilities{
+  position: absolute;
+  right: 35%;
+  top: 30%;
+}
+
+#search{
+  position: absolute;
+  left: 10%;
+  margin-left: 10px;
+  width: max-content;
+}
+
+#options{
+  position: absolute;
+  right: 100%;
+}
+
+#navbar{
+  position: fixed;
+  z-index: 50;
+  height: 10%;;
+}
+
+#sidebar{
+  width: 2%;
+  position: fixed;
+  background-color: gray;
+  z-index: 100;
+}
+
+#container_user_options{
+  background-color: inherit;
+  visibility: hidden;
+  position:relative;
+  margin: 5px;
+  top: 0%;
+  z-index: 101;
+}
+
+#container_site_options{
+  background-color: inherit;
+  visibility: hidden;
+  position: absolute;
+  margin: 5px;
+  bottom: 2%;
+  z-index: 101;
+}
+
+#sidebar h1{
+  color: white;
+}
+
+@keyframes respond {
+  from{
+      opacity: 0.5;
+  }
+  to{
+      opacity: 1;
+  }
+}
+
+@keyframes cleanup{
+  from{
+      opacity: 1;
+  }
+  to{
+      opacity: 1;
+      margin-left: 0%;
+  }
+}
+
+
+#contents{
+  padding: 1%;
+  position: absolute;
+  top: 10%;
+  left: 4%;
+  height: max-content;
+  width: 90%;
+}
+
+
+.card-header{
+  width: max-content;
+  background-color: black;
+}
+
+.collapse{
+  background-color: black;
+}
+
+
+#accordion{
+  float: left;
+  position: absolute;
+  padding: 10px;
+  margin: 10px;
+  background-color: black;
+  width: 50%;
+  padding: 1%;
+  z-index: 4;
+  height: fit-content;
+}
+
+#accordion > h2 {
+  color: white;
+  position: relative;
+  left: 30%;
+}
+
+#accordion div{
+  background-color: black;
+  color: white;
+  width: initial;
+  padding: 10px;
+}
+
+#create_a_game{
+  background-image: url('./prost.png');
+  background-position: 0%;
+  background-size: cover;
+  position: absolute;
+  left: 60%;
+  top: 50%;
+  height: 400px;
+  width: 40%;
+  opacity: 1;
+}
+
+#create_a_game > h1{
+  z-index: 10;
+  color: gold;
+  position: relative;
+  left: 10%;
+  top: 10%;
+}
+
+#recent{
+  position: absolute;
+  bottom: -25%;
+  left: 10%;
+}
+
+#activities{
+  padding: 5px;
+}
+
+
+#activities > div:hover{
+  opacity: 1;
+}
+
+#activities h2{
+  color: white;
+}
+
+#activities > div{
+  color:white;
+  margin: 10px;
+  padding: 5px;
+  background-color: black;
+  width: 1000px;
+  left: 5%;
+  opacity: 0.5;
+}
