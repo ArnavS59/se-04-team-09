@@ -19,6 +19,7 @@ This repository contains the following files (extensive details have been includ
         iii.	style.scss styles login.jsx and register.jsx.
         iv.	index.jsx exports the login and register component and the styls scss to be applied. 
     f.	Test cases run on the authentication page through the file App.test.js. In order to run the test cases, run the command npm test in the root folder.
+                                                                     
                                                                      -Up to here the contribution was made by Korin Hoxha-
                                                                      
                                                                      -below you can find the contribution by Subigya Poudel-
