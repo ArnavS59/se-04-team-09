@@ -58,7 +58,7 @@
     <div id = 'first_quadrant' class = 'quadrant top left'>
       <h2>Place your order here (Week: <span id = 'weeks_elapsed'>6</span>)</h2> 
       <!-- Place {{weeks}} instead of 4 if you are using django-->
-      <h6>Demand from {{downstream_player['role']}}: <span style = 'position: absolute; right:5%;color:blue;'>{{downstream_player['demand']}}</span></h6>
+      <h6>Demand from {{downstream_player}}: <span style = 'position: absolute; right:5%;color:blue;'>{{downstream_player['demand']}}</span></h6>
       <h6>Backorder: <span style = 'position: absolute; right:5%;color:red;'>{{me['backorder']}}</span></h6> 
       <h5>Total: <span style = 'position: absolute; right:5%;color:green;'>{{downstream_player['demand'] + me['backorder']}}</span></h5>
       <br/>
