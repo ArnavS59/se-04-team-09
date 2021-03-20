@@ -1,36 +1,51 @@
-import React from "react";
+import React,{useState, useEffect} from "react";
 import loginImg from "../../logo.png";
+import { Form } from "../login/form";
 
-export class Register extends React.Component {
+export const Register = ()=> {
 
-  render() {
-    return (
-      <div className="base-container" ref={this.props.containerRef}>
-        <div className="content">
-          <div className="image">
-            <img src={loginImg} alt="register"/>
-          </div>
-          <div className="form">
-            <div className="form-group">
-              <label htmlFor="username">Username</label>
-              <input type="text" name="username" placeholder="username" />
-            </div>
-            <div className="form-group">
-              <label htmlFor="email">Email</label>
-              <input type="text" name="email" placeholder="email" />
-            </div>
-            <div className="form-group">
-              <label htmlFor="password">Password</label>
-              <input type="password" name="password" placeholder="password" />
-            </div>
-          </div>
-        </div>
-        <div className="footer">
-          <button type="button" className="btn">
-            Register
-          </button>
-        </div>
-      </div>
-    );
+  const[state, setState] = useState({
+    username: "",
+    email: "",
+    password: ""
+  })
+  useEffect(()=>{
+    fetch ('/app/user').then (Repsonse => {
+      if(Response.ok){
+        return Repsonse.json()
+      }
+    }).then (data =>console.log(data))
+  },[])
+
+
+  function handleFormchange (e) {
+     const value = e.target.value;
+     setState({
+       ...state,
+       [e.target.name]: value   
+     });
   }
+
+  const handleFormSubmit = ()=> {
+    console.log('here')
+    fetch('http://localhost:5000/app/user', {
+      mode: 'no-cors',
+      method : "POST",
+      body: JSON.stringify({
+        name : state.username,
+        email : state.email,
+        password : state.password
+      }),
+      headers: {
+        "Conent-type": "application/json; charset=UTF-8"
+      }
+      
+    })
+    //console.log(pw)
+  }
+  return (
+    <>
+    <Form userInput = {state} onFormChange = {handleFormchange} onFormSubmit = {handleFormSubmit}/>
+    </>
+  )
 }

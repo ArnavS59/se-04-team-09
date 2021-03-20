@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, json
 from flaskext.mysql import MySQL
 
 app = Flask(__name__)
@@ -6,19 +6,11 @@ app = Flask(__name__)
 
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = 'xalhna'
-app.config['MYSQL_DB'] = 'seteam09'
+app.config['MYSQL_PASSWORD'] = ''
+app.config['MYSQL_DB'] = 'test'
 
 mysql = MySQL()
 mysql.init_app(app)
-@app.route('/', methods=['POST', 'GET'])
-
-#To be updated later
-#Just for sample testing
-def index() :
-    return render_template('index.html')
-
-
 def execute_dbquery(query):
     print(query)
     con = mysql.connect()
@@ -37,11 +29,29 @@ def AddToDatabase(Table, data):
     query = "INSERT INTO test.%s VALUES %r;" % (Table, tuple(data))
     execute_dbquery(query)
 
+@app.route('/app', methods=['POST', 'GET'])
+
+#To be updated later
+#Just for sample testing
+def index() :
+    return 'Hello 2'
+
+@app.route('/app/user', methods = ['GET', 'POST'])
+def user():
+    data = json.loads(request.data)
+    id = 90
+    username, email, pw = data['name'], data['email'], data['password']
+    d = [id, username, email, pw]
+    AddToDatabase('User', d)
+    #print(d)
+    return ('okay')
+
+
 
 if __name__ == "__main__":
-    #app.run(debug=True)
+    app.run(debug=True)
 
-
+"""
     class Game:
 
         def __init__(self, session_id = 'Default', session_length = 26, distributor_present =True, wholesaler_present =True,
@@ -113,7 +123,7 @@ if __name__ == "__main__":
             #query2 = "UPDATE test.Round_History SET week = %s WHERE g_id = '%s'"% (self.rounds_completed, self.session_id)
             #execute_dbquery(query)
             #execute_dbquery(query2)
-    g = Game()
+    #g = Game()
     #g.add_player(51)
     #g.remove_player(51)
     #g.deactivate_wholesaler()
@@ -215,7 +225,7 @@ if __name__ == "__main__":
                     AddToDatabase('Round_History', data)
 
 
-    p1 = Player(1, 'test', 'test@email', 'strong', g, 1)
+    #p1 = Player(1, 'test', 'test@email', 'strong', g, 1)
     #p2 = Player(2, 'test2', 'test2@email', 'strong', g, 2)
     #p3 = Player(3, 'test3', 'test3@email', 'strong', g, 3)
     #p4 = Player(4, 'test4', 'test4@email', 'strong', g, 4)
@@ -276,5 +286,6 @@ class TestClass(unittest.TestCase):
         sender.shipped_out()
         self.assertEqual(sender.current_backorder,2)
 
-A = TestClass()
-A.test_shipment()
+#A = TestClass()
+#A.test_shipment()
+"""
