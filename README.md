@@ -59,12 +59,12 @@ On this sprint the contributors focused on the back-end. They used Python, Mysql
 
 Schema.sql file includes: 
 1. Basic Game Functions elements:
-  a. Game Table: for storing necessary informations in a single game.
-  b. Player Table
-  c. Instructor Table
-  d. round History Table
-  e. Demand Table
-  f. Demand Pattern Table
-  g. Used_In and Plays_In 
-2. Basic Login/Register elements:
-  a. User Table: storing email, password and id, names...
+  a. Game Table: for storing necessary informations in a single game.  
+  b. Player Table  
+  c. Instructor Table  
+  d. round History Table  
+  e. Demand Table  
+  f. Demand Pattern Table  
+  g. Used_In and Plays_In   
+2. Basic Login/Register elements:  
+  a. User Table: storing email, password and id, names...  
