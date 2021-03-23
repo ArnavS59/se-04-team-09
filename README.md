@@ -72,3 +72,4 @@ Schema.sql file includes:
 Changes from last spring test case file include:
 1. Invalid Input when register.  
 2. Invalid Input when login.  
+3. Check for valid email
