@@ -74,7 +74,7 @@ Requirements: python3 installed and mysql srver running on the device. Create a 
 3. Install npm 
     - npm install
 
-4. Run the file app.py
+4. Run the file app.py in the folder combined_code
     - python3 app.py
 
 5. Start npm
