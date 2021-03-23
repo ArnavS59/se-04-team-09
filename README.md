@@ -95,11 +95,12 @@ Now you can go to the browser (usually at "localhost:3000").
   a. User Table: storing email, password and id, names...  
 
 The following changes have been implemented in this sprint:
+
   - Implementation of Register part (Adding the user to the database)
   - Login Credetentials Authentication
   - Backend raw codes (has been commented out in the file app.py)
   
-  .Changes from last sprint test case file include:
+   - Changes from last sprint test case file include:
     - Invalid Input when register.  
     - Invalid Input when login.  
     - Check for valid email
