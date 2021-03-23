@@ -50,8 +50,40 @@ export class Login extends React.Component {
     this.setState({ formValid: this.state.emailValid && this.state.passwordValid });
   }
 
+  handlemessage(m) {
+    if(m === 'Success'){
+      console.log('LoggenIn')
+      alert(m)
+      window.open('./newgame') // To be implement later. redirects after successful login
+    } else {
+      console.log(m)
+      alert(m)
+    }
+  }
+
+  handleSubmit(e) {
+    e.preventDefault()
+    fetch('http://localhost:5000/app/login', {
+      method : "POST",
+      body: JSON.stringify({
+        email : this.state.email,
+        password : this.state.password
+      }),
+      headers: {
+        "Access-Control-Allow-Origin" : "http://localhost:3000",
+        "Access-Control-Allow-Headers" :"Origin, X-Requested-With, Content-Type, Accept",
+        "Access-Control-Allow-Credentials" : true, 
+        "Conent-type": "application/json; charset=UTF-8",
+      }
+      
+    }).then(response => response.json())
+      .then(message => this.handlemessage(message))
+    //onFormSubmit()
+  }
+
   render() {
     return (
+      <form onSubmit = {(event) => this.handleSubmit(event)}>
       <div className="base-container" ref={this.props.containerRef}>
         <div className="content">
           <div className="image">
@@ -69,14 +101,13 @@ export class Login extends React.Component {
           </div>
         </div>
         <div className="footer">
-          <button type="button" className="btn">
-            Login
-          </button>
+          <input type="Submit" className="btn" value = "Login"/>
         </div>
         <div>
           <FormErrors formErrors={this.state.formErrors} />
         </div>
       </div>
-    );
+      </form>
+    )
   }
 }

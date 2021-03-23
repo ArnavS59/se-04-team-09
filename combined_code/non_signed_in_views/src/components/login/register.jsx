@@ -1,21 +1,14 @@
 import React,{useState, useEffect} from "react";
-import loginImg from "../../logo.png";
 import { Form } from "../login/form";
 
 export const Register = ()=> {
 
   const[state, setState] = useState({
+    name: "",
     username: "",
     email: "",
     password: ""
   })
-  useEffect(()=>{
-    fetch ('/app/user').then (Repsonse => {
-      if(Response.ok){
-        return Repsonse.json()
-      }
-    }).then (data =>console.log(data))
-  },[])
 
 
   function handleFormchange (e) {
@@ -27,12 +20,12 @@ export const Register = ()=> {
   }
 
   const handleFormSubmit = ()=> {
-    console.log('here')
-    fetch('http://localhost:5000/app/user', {
+    fetch('http://localhost:5000/app/register', {
       mode: 'no-cors',
       method : "POST",
       body: JSON.stringify({
-        name : state.username,
+        name : state.name,
+        username : state.username,
         email : state.email,
         password : state.password
       }),
