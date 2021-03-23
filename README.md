@@ -58,7 +58,10 @@ The documentation in the first sprint has failed to mention these possibilities:
 On this sprint the contributors focused on the back-end. They used Python, Mysql. 
 
 Steps for running the code:
+
+
 Requirements: python3 installed and mysql srver running on the device. Create a database 'test.db' using the script Schema.sql (Lines 8-11 of the file 'app.py' should be edited to match the credentials. The database is also running on clamv server for reference.)
+
 
 1. Create a virtual environment
     - sudo pip3 install virtualenv
