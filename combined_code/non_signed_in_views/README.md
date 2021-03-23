@@ -50,3 +50,11 @@ The documentation in the first sprint has failed to mention these possibilities:
 4. A Reset game option can be implemented to restart game to week 1 with the game’s default values.
 5. Authentication credentials are set by the instrucor for the student players and he is able to print the passwords accordingly for all of them. So rather the instructor plays the role of an "admin".
 6. It shall not allow a game to be started unless there are at least one player in the Factory station and one player in the Distributor station.
+
+
+
+# se-01-team-09
+SE Sprint 02, Team 09, 23.03.2021 Haolan Zheng Lalit Chaudhary
+
+
+
