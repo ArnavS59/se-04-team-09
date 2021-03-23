@@ -57,6 +57,27 @@ The documentation in the first sprint has failed to mention these possibilities:
 
 On this sprint the contributors focused on the back-end. They used Python, Mysql. 
 
+Steps for running the code:
+Requirements: python3 installed and mysql srver running on the device. Create a database 'test.db' using the script Schema.sql (Lines 8-11 of the file 'app.py' should be edited to match the credentials. The database is also running on clamv server for reference.)
+
+.Create a virtual environment
+    . sudo pip3 install virtualenv
+		. virtualenv env
+		. source env/bin/activate
+. Install flask and related modules
+		sudo pip3 install flask flask-sqlalchemy flask_cors flask-mysql
+    
+.Install npm 
+    .npm install
+
+.Run the file app.py
+    . python3 app.py
+
+.Start npm
+    . npm start
+ 
+Now you can go to the browser (usually at "localhost:3000").
+
 Schema.sql file includes: 
 1. Basic Game Functions elements:
   a. Game Table: for storing necessary informations in a single game.  
@@ -69,10 +90,17 @@ Schema.sql file includes:
 2. Basic Login/Register elements:  
   a. User Table: storing email, password and id, names...  
 
-Changes from last spring test case file include:
-1. Invalid Input when register.  
-2. Invalid Input when login.  
-3. Check for valid email
+The following changes have been implemented in this sprint:
+  . Implementation of Register part (Adding the user to the database)
+  . Login Credetentials Authentication
+  . Backend raw codes (has been commented out in the file app.py)
+  
+  .Changes from last sprint test case file include:
+    . Invalid Input when register.  
+    . Invalid Input when login.  
+    . Check for valid email
+    . Sample testcase in app.py to test game advancement funnctions
+
 
 **Recommendations for improvements:**
 1. The first spring group did everything based on JS on signed-in view and Mostly React on Non-signed in view. So you might want to focus on putting efforts on one single section.  
