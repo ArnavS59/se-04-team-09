@@ -56,5 +56,5 @@ The documentation in the first sprint has failed to mention these possibilities:
 # se-01-team-09
 SE Sprint 02, Team 09, 23.03.2021 Haolan Zheng Lalit Chaudhary
 
-
+On this sprint the contributors focused on the back-end. They used Python, Mysql. 
 
