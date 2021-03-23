@@ -70,7 +70,7 @@ Requirements: python3 installed and mysql srver running on the device. Create a 
 3. Install npm 
     - npm install
 
-4.Run the file app.py
+4. Run the file app.py
     - python3 app.py
 
 5. Start npm
@@ -78,7 +78,7 @@ Requirements: python3 installed and mysql srver running on the device. Create a 
  
 Now you can go to the browser (usually at "localhost:3000").
 
-Schema.sql file includes: 
+**Schema.sql** file includes: 
 1. Basic Game Functions elements:
   a. Game Table: for storing necessary informations in a single game.  
   b. Player Table  
@@ -91,15 +91,15 @@ Schema.sql file includes:
   a. User Table: storing email, password and id, names...  
 
 The following changes have been implemented in this sprint:
-  . Implementation of Register part (Adding the user to the database)
-  . Login Credetentials Authentication
-  . Backend raw codes (has been commented out in the file app.py)
+  - Implementation of Register part (Adding the user to the database)
+  - Login Credetentials Authentication
+  - Backend raw codes (has been commented out in the file app.py)
   
   .Changes from last sprint test case file include:
-    . Invalid Input when register.  
-    . Invalid Input when login.  
-    . Check for valid email
-    . Sample testcase in app.py to test game advancement funnctions
+    - Invalid Input when register.  
+    - Invalid Input when login.  
+    - Check for valid email
+    - Sample testcase in app.py to test game advancement funnctions
 
 
 **Recommendations for improvements:**
