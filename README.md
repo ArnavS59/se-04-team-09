@@ -68,3 +68,7 @@ Schema.sql file includes:
   g. Used_In and Plays_In   
 2. Basic Login/Register elements:  
   a. User Table: storing email, password and id, names...  
+
+Changes from last spring test case file include:
+1. Invalid Input when register.  
+2. Invalid Input when login.  
