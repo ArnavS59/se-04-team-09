@@ -61,20 +61,20 @@ Steps for running the code:
 Requirements: python3 installed and mysql srver running on the device. Create a database 'test.db' using the script Schema.sql (Lines 8-11 of the file 'app.py' should be edited to match the credentials. The database is also running on clamv server for reference.)
 
 1. Create a virtual environment
-    - sudo pip3 install virtualenv-
-    - virtualenv env -
-    - source env/bin/activate -
+    - sudo pip3 install virtualenv
+    - virtualenv env 
+    - source env/bin/activate 
 2.Install flask and related modules
-    - sudo pip3 install flask flask-sqlalchemy flask_cors flask-mysql -
+    - sudo pip3 install flask flask-sqlalchemy flask_cors flask-mysql 
     
-.Install npm 
-    .npm install
+3. Install npm 
+    - npm install
 
-.Run the file app.py
-    . python3 app.py
+4.Run the file app.py
+    - python3 app.py
 
-.Start npm
-    . npm start
+5. Start npm
+   - npm start
  
 Now you can go to the browser (usually at "localhost:3000").
 
