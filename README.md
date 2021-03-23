@@ -60,10 +60,10 @@ On this sprint the contributors focused on the back-end. They used Python, Mysql
 Steps for running the code:
 Requirements: python3 installed and mysql srver running on the device. Create a database 'test.db' using the script Schema.sql (Lines 8-11 of the file 'app.py' should be edited to match the credentials. The database is also running on clamv server for reference.)
 
-.Create a virtual environment
-    . sudo pip3 install virtualenv
-		. virtualenv env
-		. source env/bin/activate
+1. Create a virtual environment
+    a. sudo pip3 install virtualenv
+    b. virtualenv env
+    c. source env/bin/activate
 . Install flask and related modules
 		sudo pip3 install flask flask-sqlalchemy flask_cors flask-mysql
     
