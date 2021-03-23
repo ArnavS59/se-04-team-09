@@ -73,3 +73,8 @@ Changes from last spring test case file include:
 1. Invalid Input when register.  
 2. Invalid Input when login.  
 3. Check for valid email
+
+**Recommendations for improvements:**
+1. The first spring group did everything based on JS on signed-in view and Mostly React on Non-signed in view. So you might want to focus on putting efforts on one single section.  
+2. The SQL file is well-developed enough for game function so you could use it for furthur management.  
+3. Python file for checking login/register is done so you can see if a fine front end pop up window can be displayed afterward.  
