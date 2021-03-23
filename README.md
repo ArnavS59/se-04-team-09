@@ -62,10 +62,10 @@ Requirements: python3 installed and mysql srver running on the device. Create a 
 
 1. Create a virtual environment
     - sudo pip3 install virtualenv-
-    - virtualenv env-
-    c. source env/bin/activate
-    d. Install flask and related modules
-		sudo pip3 install flask flask-sqlalchemy flask_cors flask-mysql
+    - virtualenv env -
+    - source env/bin/activate -
+2.Install flask and related modules
+    - sudo pip3 install flask flask-sqlalchemy flask_cors flask-mysql -
     
 .Install npm 
     .npm install
