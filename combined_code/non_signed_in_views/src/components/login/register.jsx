@@ -34,7 +34,7 @@ export const Register = ()=> {
       }
       
     })
-    //console.log(pw)
+    alert("User added successfully!")
   }
   return (
     <>
