@@ -1,5 +1,5 @@
 # se-01-team-09
-SE Sprint 01, Team 09, 09.03.2021
+## SE Sprint 01, Team 09, 09.03.2021
 
 On this sprint the contributors focused on the front-end. They used HTML, CSS, REACT JS and SCSS. The testing was done using plain JS code. 
 **Note:** 
@@ -53,8 +53,18 @@ The documentation in the first sprint has failed to mention these possibilities:
 
 
 
-# se-01-team-09
-SE Sprint 02, Team 09, 23.03.2021 Haolan Zheng Lalit Chaudhary
+## SE Sprint 02, Team 09, 23.03.2021 Haolan Zheng Lalit Chaudhary
 
 On this sprint the contributors focused on the back-end. They used Python, Mysql. 
 
+Schema.sql file includes: 
+1. Basic Game Functions elements:
+  a. Game Table: for storing necessary informations in a single game.
+  b. Player Table
+  c. Instructor Table
+  d. round History Table
+  e. Demand Table
+  f. Demand Pattern Table
+  g. Used_In and Plays_In 
+2. Basic Login/Register elements:
+  a. User Table: storing email, password and id, names...
