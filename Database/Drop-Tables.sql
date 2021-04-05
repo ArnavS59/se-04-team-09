@@ -1,0 +1,11 @@
+DROP TABLE Round_History;
+DROP TABLE Plays_In;
+DROP TABLE Instructs;
+DROP TABLE Monitors;
+DROP TABLE Used_In;
+DROP TABLE Player;
+DROP TABLE Instructor;
+DROP TABLE Game;
+DROP TABLE Demand;
+DROP TABLE Demand_Pattern;
+DROP TABLE User;

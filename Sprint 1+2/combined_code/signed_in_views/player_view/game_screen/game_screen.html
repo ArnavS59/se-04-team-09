@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#000000" />
+  <!--
+      manifest.json provides metadata used when your web app is installed on a
+      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
+    -->
+  <!--
+      Notice the use of %PUBLIC_URL% in the tags above.
+      It will be replaced with the URL of the `public` folder during the build.
+      Only files inside the `public` folder can be referenced from the HTML.
+
+      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
+      work correctly both with client-side routing and a non-root public URL.
+      Learn how to configure a non-root public URL by running `npm run build`.
+    -->
+  <link rel="stylesheet" href="./game_screen.css">
+  <script src="./testing.js"></script>
+  <script src="./game_screen.js"></script>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
+  <title>General Template</title>
+</head>
+
+<body>
+  <div id='sidebar' onmouseenter='openNav()' onmouseleave="closeNav()">
+    <div id='container_user_options' class='sidebar_options'>
+      <h1 class='sidebar_options'>Options</h1>
+      <a href="">
+        <h2 class='sidebar_options'>Quit game</h2>
+      </a>
+      <a href = "" onclick="game_instructions()">
+        <h2 class='sidebar_options'>Game Instructions</h2>
+      </a>
+      <a href="">
+        <h2 class='sidebar_options'>Game Settings</h2>
+      </a>
+      <a href="">
+        <h2 class='sidebar_options'>Game Chat</h2>
+      </a>
+    </div>
+  </div>
+  </div>
+  <div id = 'content' class = 'side_shift'>
+    <div id = 'first_quadrant' class = 'quadrant top left'>
+      <h2>Place your order here (Week: <span id = 'weeks_elapsed'>6</span>)</h2> 
+      <!-- Place {{weeks}} instead of 4 if you are using django-->
+      <h6>Demand from {{downstream_player}}: <span style = 'position: absolute; right:5%;color:blue;'>{{downstream_player['demand']}}</span></h6>
+      <h6>Backorder: <span style = 'position: absolute; right:5%;color:red;'>{{me['backorder']}}</span></h6> 
+      <h5>Total: <span style = 'position: absolute; right:5%;color:green;'>{{downstream_player['demand'] + me['backorder']}}</span></h5>
+      <br/>
+      <h6>Beginning Inventory: <span style = 'position: absolute; right:5%;'>{{me['beginning_inventory']}}</span></h6>
+      <h6>Incoming Shipment: <span style = 'position: absolute; right:5%; color:green'>{{me['incoming_shipment']}}</span></h6>
+      <h5>Total avaiable: <span style = 'position:absolute; right:5%; color:purple'>{{me['beginning_inventory'] + me['incoming_shipment']}}</span></h5>
+      <br/>
+      <h6>Units shipped to distributor this week <span style = 'position: absolute; right:5%;color:green;'>{{me['feasible_units']}}</span></h6>
+      <h5>Ending inventory: <span style = 'position: absolute; right:5%;color:blue;'>{{me['beginning_inventory'] + me['incoming_shipment'] - me['feasible_units']}}</span></h5>
+      <form action="" method="POST">
+        <label for="order">Order your beers here</label>
+        <input type="number" min = "0" placeholder="Number of beers" name='order'/>
+        <button type = 'submit' class = 'btn btn-success' id = 'order_button'>
+          Order
+        </button>
+      </form>
+    </div>
+    <div id = 'second_quadrant' class = 'quadrant top right'>
+      <h2>Past information</h2>
+      <table>
+        <thead>
+          <th>Week</th>
+          <th>Inv/Bk</th>
+          <th>Demand</th>
+          <th>Inc. Shipment</th>
+          <th>Out. Shipment</th>
+          <th>Order</th>
+          <th>Current cost</th>
+        </thead>
+        <tbody>
+          <tr id = 'w1' class = 'week_info'>
+            <td class = 'week'>1</td>
+            <td class = 'inventory'>10</td>
+            <td class = 'demand'>3</td>
+            <td class = 'incoming_shipment'>0</td>
+            <td class = 'outgoing_shipment'>3</td>
+            <td class = 'order'>4</td>
+            <td class = 'current_cost'>3.5</td>
+          </tr>
+          <tr id = 'w2' class = 'week_info'>
+            <td class = 'week'>2</td>
+            <td class = 'inventory'>7</td>
+            <td class = 'demand'>6</td>
+            <td class = 'incoming_shipment'>0</td>
+            <td class = 'outgoing_shipment'>6</td>
+            <td class = 'order'>10</td>
+            <td class = 'current_cost'>0.5</td>
+          </tr>
+          <tr id = 'w3' class = 'week_info'>
+            <td class = 'week'>3</td>
+            <td class = 'inventory'>1</td>
+            <td class = 'demand'>3</td>
+            <td class = 'incoming_shipment'>0</td>
+            <td class = 'outgoing_shipment'>1</td>
+            <td class = 'order'>10</td>
+            <td class = 'current_cost'>2</td>
+          </tr>
+          <tr id = 'w4' class = 'week_info'>
+            <td class = 'week'>4</td>
+            <td class = 'inventory'>-2</td>
+            <td class = 'demand'>4</td>
+            <td class = 'incoming_shipment'>0</td>
+            <td class = 'outgoing_shipment'>0</td>
+            <td class = 'order'>10</td>
+            <td class = 'current_cost'>4</td>
+          </tr>
+          <tr id = 'w5' class = 'week_info'>
+            <td class = 'week'>5</td>
+            <td class = 'inventory'>-6</td>
+            <td class = 'demand'>0</td>
+            <td class = 'incoming_shipment'>4</td>
+            <td class = 'outgoing_shipment'>4</td>
+            <td class = 'order'>5</td>
+            <td class = 'current_cost'>2</td>
+          </tr>
+          <!-- If django is used the following code might come handy -->
+          <!-- {%for weeks in history%}
+          <tr id = "w{{weeks['week']}}">
+          <td>{{weeks['week']}}</td>
+          <td>{{weeks['inventory']}}</td>
+          <td>{{weeks['demand']}}</td>
+          <td>{{weeks['incoming_shipment']}}</td>
+          <td>{{weeks['outgoing_shipment']}}</td>
+          <td>{{weeks['order_placed']}}</td>
+          <td>{{weeks['current_cost']}}</td>
+          </tr>
+          {% endfor %} -->
+        </tbody>
+      </table>
+    </div>
+    <div id = 'third_quadrant' class = 'quadrant down left'>
+      <h2>Game status (refreshing in <span id = 'countdown' style="color: gold;">15</span>)</h2>
+      <br/>
+      <h5>When all the players have place their order for this week then you will receive the link to proceed to next week's game</h5>
+      <br/>
+      <h2>Week {{weeks}}</h2>
+      <h4>Factory: <span id = 'factory_status'></span> </h4>
+      <h4>Distributor: <span id = 'distributor_status'></span></h4>
+      <h4>Wholesaler: <span id = 'wholesaler_status'></span></h4>
+      <h4>Retailer: <span id = 'retailer_status'></span></h4>
+      <!-- Some players might not be present, so it is recommended that you send the JSON 
+      with only the appropriate players and their status, and use JavaScript to create this section -->
+    </div>
+    <div id = 'fourth_quadrant' class = 'quadrant down right'>
+      <h2>Plot and Game information</h2>
+      <div id = 'button_area'>
+        <button class = 'btn btn-danger plot_buttons' onclick="demand_plot()">
+          Demand Plot
+        </button>
+        <button class = 'btn btn-primary plot_buttons' onclick="order_plot()">
+         Order Plot
+        </button>
+        <button class = 'btn btn-warning plot_buttons' onclick="inventory_plot()">
+          Inv/Backorder plot
+        </button>
+        <button class = 'btn btn-success plot_buttons' onclick="plot_all()">
+          Plot all
+        </button>
+      </div>
+      <div id = 'game_params'>
+        <h5>Holding cost: {{game['holding_cost']}}</h5>
+        <h5>Backorder cost: {{game['backorder_cost']}}</h5>
+        <h5>Downstream player: {{downstream_player['role']}}</h5>
+        <h5>Upstream Player: {{upstream_player['role']}}</h5>
+        <br/>
+        Information delay: <span style = 'color:red;'>game['information_delay']</span>(me['role'] -> upstream_player['role'])
+        Information delay: <span style = 'color:red;'>game['information_delay']</span>(me['role'] -> upstream_player['role'])
+        Shipping delay: <span style = 'color:red;'>game['shipping_delay']</span>(me['role'] -> upstream_player['role'])
+        Shipping delay: <span style = 'color:red;'>game['shipping_delay']</span>(me['role'] -> upstream_player['role'])
+      </div>
+    </div>
+    <div class = 'quadrant' id = 'trash_can' style = 'visibility: hidden;'>
+    </div>
+  </div>
+</body>
+
+</html>
