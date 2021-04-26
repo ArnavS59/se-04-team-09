@@ -12,10 +12,6 @@ Note: To properly view this document use 8 character tabs.
 
 	1.1 Prerequisites
 
-		React version : 17.0.1
-		Use : 
-		> sudo npm install -g create-react-app
-
 		Python version : 3.8.1
 		Use :
 		> sudo apt-get install python3-pip
@@ -24,105 +20,26 @@ Note: To properly view this document use 8 character tabs.
 		Use :
 		> sudo apt-get install mysql-server
 		> sudo secure_mysql_installation
-		
-		Sqlite version : 3.31.1
-		Use :
-		> sudo apt-get install sqlite3
-		> sudo apt-get install sqlitebrowser
-
 
 	
 	1.2 Initializing
 		
-		Before testing any of the parts get the project using : > git clone https://github.com/lorenzorota/se-02-team-10.git
+		Firstly start with > git clone https://github.com/lorenzorota/se-04-team-09.git
 		
-		1.2.1 Frontend:
-		
-				1.2.1.1 Default Template :
-				
-				It is found at ../se-03-team-09/flask-server/templates.
-				It is automatically run when you run the server.
-				Note: If you have problems trying to run it frontend-wise, use :
-				> npm install bootstrap --save
-				> npm install --save react-router-dom
-				
-				1.2.1.2 Template 1:
-				
-				Create your react app using : > npx create-react-app my-app
-				Go into my-app folder
-				Install the external packages:
-				> npm install bootstrap --save
-				> npm install --save react-router-dom
-				> npm install react-pro-sidebar
-				> npm install react-icons --save
-				Copy  files & folders : "src, public, startbootstrap-simple-sidebar-gh-pages, and package.json" from my-app folder in git to your react folder my-app,
-				> npm start
-				
-				1.2.1.3 Template 2:
-				
-				Check Sprint 1+2 for documentation.
-				Note: Documentation may not state how to run the code, so you must get the information from previous sprints if you want to use a different template.
+		1.2.1 Frontend/Backend:
+			cd into flaskapi folder
+			> pip install -r requirements.txt
+			> python main.py
 		
 		1.2.2 Database initialization:
-		
 			Enter mysql in the machine: > sudo mysql -u root -p
-			Use command: > Create database testdb;
-			Import tables in testdb: > sudo mysql -u root -p testdb < 'path'/SQLSchema.sql ('path' for whatever path you cloned the git at)
-			
-		1.2.3 Database server side:
-		
-			Testing Database API server-side, run following commands: 
-				> sudo apt-get install python3-pip
-				> sudo pip3 install virtualenv
-				> virtualenv env
-				> source env/bin/activate
-				> sudo pip3 install flask flask-sqlalchemy
-				> sudo apt-get install libmysqlclient21
-				> sudo apt-get install libmysqlclient-dev
-				> sudo apt-get install python-dev default-libmysqlclient-dev
-				> sudo pip3 install flask-mysqldb
-				> sudo pip3 install flask-mysql
-			Copy the "app.py" file into the folder you created above named "env".
-			Change the MYSQL credentials located at the top of the "app.py" file to match your MYSQL server.
-			Run the script using the command: FLASK_APP=app.py flask run (server side not functional yet)
+			Enter your password
+			Goto Database Folder and copy paste the contents of schema.sql into the sql terminal
+			You can use the command > show tables; to make sure the tables were added into the db. 
 
-		1.2.4 Database backend side:
-
-			Go to the folder where app.py is
-			> pip3 install flask flask-sqlalchemy
-			> pip3 install flask-mysql
-			> (sudo) python3 app.py
-			
-			Note: 
-
-				Two problems may arise, 1st that flaskext.mysql is not known as a module, try installing using : > pip intall flask-mysql
-				and visit https://flask-mysql.readthedocs.io/en/latest/# for any other problem.
-				2nd there may be a security problem where root@localhost is not allowed to enter. You will need to change the native password of
-				the user root at mysql to the credentials you are using at app.py and go to /usr/local/lib/python3.8/dist-packages/flaskext/mysql.py
-				and change the default credentials there to your credentials. This happend when the project was run from a new linux virtual machine.
-
-			Note to Devs:
-
-				If you want to run app.py again you need to run these 2 commands so you do not have duplicate key:
-				> sudo mysql -u root -p testdb < 'path'/Drop-Tables.sql ('path' for whatever path you cloned the git at)
-				> sudo mysql -u root -p testdb < 'path'/SQLSchema.sql ('path' for whatever path you cloned the git at)
-				
-		1.2.5 Combined Project:
-			
-			
-			Prerequisites:
-			> sudo pip3 install SQLAlchemy
-			> sudo pip3 install flask-login
-			> sudo pip3 install -U Werkzeug
-			
-			Be sure to use a virtual environment for the combined project.
-			
-			Simply go to ../se-03-team-09/flask-server and to run server:
-			> python3 main.py
-			
-			To run test cases:
-			> python3 test.py
-			
+		1.2.3 Test Cases:
+				> cd into flaskapi
+				> python3 tests.py
 ----------------------------------------------------------------------------------------------------------------------
 2. HOW TO USE
 	
