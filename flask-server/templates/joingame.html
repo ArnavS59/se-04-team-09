@@ -1,0 +1,56 @@
+{% extends 'player.html' %}
+
+<!-- {% block content4%} -->
+
+<!-- <div class="tab-content"> -->
+    {% with messages = get_flashed_messages(with_categories=true) %} {% if
+        messages %} {% for category, message in messages %} {% if category ==
+        'error' %}
+        <div class="alert alert-danger alert-dismissible fade show nomargin" role="alert">
+            {{ message }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        {% else %}
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        {% endif %} {% endfor %} {% endif %} {% endwith %}
+<div id=card>
+<div id="joingame" class="tab-pane active">
+    <h3>Join a Game</h3>
+    <form action="{{ url_for('joingame') }}" method="POST">
+        <div class=row>
+            <div class=" col-md-6"">
+                <div class=" form-group">
+                <label for="gameid">Game ID</label>
+                <input type="number" class="form-control" id="gameid" name="gameid"
+                    placeholder="Game ID" required>
+            </div>
+        </div>
+        <div class=" col-md-6"">
+            <div class=" form-group">
+            <label for="role">Role</label>
+            <select class="form-control" name="role" required>
+                <option value="consumer">Consumer</option>
+                <option value="retialer">Retailer</option>
+                <option value="Wholesaler">Wholesaler</option>
+                <option value="Distributor">Distributor</option>
+            </select>
+        </div>
+</div>
+</div>
+<!-- </div> -->
+</br>
+<button type="submit" class="btn btn-warning" value="join">Join</button>
+</form>
+<!-- <h2> From creategame penis</h2> -->
+</div>
+</div>
+<!-- {% endblock %} -->
+
+

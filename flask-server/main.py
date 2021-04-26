@@ -1,221 +1,284 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for, jsonify, session, Flask
-from models import Student, Instructor
-from werkzeug.security import generate_password_hash, check_password_hash
-from __init__ import db, create_database
-from flask_sqlalchemy import SQLAlchemy
 from flask_login import login_required, current_user
 from os import path
 import json
 from functools import wraps
+from flask_mysqldb import MySQL
 
 #-----------------------------------------------------------------------
 # Temporary working with database.db
 
-db = SQLAlchemy()
-DB_NAME = "database.db"
+import re
 app = Flask(__name__)
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+app.config['MYSQL_HOST'] = "localhost"
+app.config['MYSQL_USER'] = "root"
+app.config['MYSQL_PASSWORD'] = "asingh19"
+app.config['MYSQL_DB'] = "flaskapp5"
 app.config['SECRET_KEY'] = 'I am the Secret Key of this Beer Game Project'
-app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
-db.init_app(app)
 
-
-
-from models import Instructor, Student
-
-create_database(app)
+mysql = MySQL(app)
 
 #-----------------------------------------------------------------------
 
-def stud_login_required(f):
-    @wraps(f)
-    def wrap(*args, **kwargs):
-        if 'logged_in' in session:
-            return f(*args, **kwargs)
-        else:
-            flash('You need to login first.')
-            return redirect(url_for('stud_login'))
-    return wrap
 
-def inst_login_required(f):
-    @wraps(f)
-    def wrap(*args, **kwargs):
-        if 'logged_in' in session:
-            return f(*args, **kwargs)
+@app.route('/', methods=["POST", "GET"])  # Login form do hashing
+def login():
+    msg = ''
+    if request.method == 'POST' and 'email' in request.form and 'password' in request.form:
+        # Create variables for easy access
+        email1 = request.form['email']
+        password1 = request.form['password']
+        # Check if account exists using MySQL
+        cursor = mysql.connection.cursor()
+        cursor.execute(
+            'SELECT * FROM User WHERE email = %s AND password = %s', (email1, password1,))
+        # Fetch one record and return result
+        account = cursor.fetchone()
+        if account:
+            # Create session data, we can access this data in other routes
+            session['loggedin'] = True
+            session['id'] = account[0]
+            session['name'] = account[1]
+            session['isInstruct'] = account[4]
+            # print(session['isInstruct'])
+            # if account[4]==1:
+            #     return render_template('instructorview.html')
+            # # session['email'] = account[3]
+            #     # Redirect to home page
+            # else:
+            return redirect(url_for('home'))
         else:
-            flash('You need to login first.')
-            return redirect(url_for('ins_login'))
-    return wrap
+            # Account doesnt exist or username/password incorrect
+            msg = 'Incorrect email/password!'
+    return render_template('starter.html', msg=msg)
+
+
+@app.route('/logout')
+def logout():
+    # Remove session data, this will log the user out
+    session.pop('loggedin', None)
+    session.pop('id', None)
+    session.pop('name', None)
+    # Redirect to login page
+    return redirect(url_for('login'))
+
+
+
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    if request.method == 'POST' and 'name' in request.form and 'password' in request.form and 'email' in request.form:
+        name1 = request.form['name']
+        password1 = request.form['password']
+        email1 = request.form['email']
+        role1 = request.form.getlist('mycheck')
+
+        if role1 == []:
+            role1 = 0  # 0 means not an instrucot 1 means true is an instrucutor
+        else:
+            role1 = 1
+        cursor = mysql.connection.cursor()
+        cursor.execute('SELECT * FROM User WHERE email = %s', (email1,))
+        account = cursor.fetchone()
+        # If account exists show error and validation checks
+        if account:
+            flash('Account already exists!', category='error')
+        elif not re.match(r'[^@]+@[^@]+\.[^@]+', email1):
+            flash('Invalid email address!', category='error')
+        elif not re.match(r'[A-Za-z0-9]+', name1):
+            flash('Username must contain only characters and numbers!',
+                  category='error')
+        elif not name1 or not password1 or not email1:
+            flash('Please fill out the form!', category='error')
+        else:
+            cursor.execute('INSERT INTO User VALUES (NULL,%s, %s, %s, %s)',(name1, email1, password1, role1))
+            mysql.connection.commit()
+            session['loggedin'] = True
+            session['name'] = name1
+            session['isInstruct'] = role1
+
+            cursor.execute('SELECT id FROM User WHERE email = %s',
+                           (email1,))  # just get the recent most id
+            newid = cursor.fetchone()
+            newid2 = newid[0]  # the first column i.e the id
+            session['id']=newid2
+            if role1 == 0:  # if player it was player also insert into player table
+                cursor.execute('INSERT INTO Player VALUES(%s,NULL)', (newid2,))
+                mysql.connection.commit()
+            else:  # also insert into instructor table
+                cursor.execute(
+                    'INSERT INTO Instructor VALUES(%s,NULL)', [newid2])
+                mysql.connection.commit()
+            flash('Account sucessfully created!', category='success')
+            return redirect(url_for('home'))
+    elif request.method == 'POST':
+        flash("Form empty")
+
+    return render_template("register.html", user=current_user)
 
 #-----------------------------------------------------------------------
 # Landing Page
 
-@app.route("/")
-def my_index():
-    return render_template("starter.html")
-
-#-----------------------------------------------------------------------
-# Student Pages (If you want to change the templates change the files at folder templates)
-
-@app.route("/student")
-@stud_login_required
-def student():
-    return render_template("index.html")
-
-@app.route("/studentGraph")
-@stud_login_required
-def studentGraph():
-    return render_template("index.html")
-
-@app.route("/studentDecision")
-@stud_login_required
-def studentDecision():
-    return render_template("index.html")
-
-@app.route("/studentFactoryProduction")
-@stud_login_required
-def studentFactoryProduction():
-    return render_template("index.html")
-
-@app.route("/studentStatus")
-@stud_login_required
-def studentStatus():
-    return render_template("index.html")
+# @app.route("/")
+# def my_index():
+#     return render_template("starter.html")
 
 
-#-----------------------------------------------------------------------
-# Instructor Pages (If you want to change the templates change the files at folder templates)
+@app.route('/home/creategame', methods=['GET','POST'])
+def creategame():
+    if 'loggedin' in session and session["isInstruct"]:
+        if request.method == 'POST' and 'sessionlength' in request.form and 'backlogcost' in request.form and 'Holdingcost' in request.form and 'startinginventory' in request.form and 'Roundscompleted' in request.form:
+            startinginventory = request.form['startinginventory']
+            sessionlength = request.form['sessionlength']
+            Holdingcost = request.form['Holdingcost']
+            Roundscompleted = request.form['Roundscompleted']
+            backlogcost = request.form['backlogcost']
+            # wholesaler_p = request.form['wholesalerp']
+            # distributor_p = request.form['distributorp']
+            # infoshare = request.form['infoshare']
+            instructid=session['id'] 
+            cursor = mysql.connection.cursor()
+            cursor.execute('INSERT INTO Game VALUES (NULL,%s, %s, %s, %s, %s, %s, %s, %s)',(sessionlength, 0, 0,Holdingcost , backlogcost, 0,Roundscompleted,startinginventory ))
+            mysql.connection.commit()
+            
+            #Also insert into the instructor/game table
+            cursor.execute(' SELECT session_id FROM Game ORDER BY session_id DESC LIMIT 1;')
+            recentgameid=cursor.fetchone()
+            gameid=recentgameid[0]
+            # session['gameid']=gameid
+            cursor.execute('INSERT INTO Monitors VALUES (%s, %s)',(instructid, gameid))
+            mysql.connection.commit()
 
-@app.route("/instructor")
-@inst_login_required
-def instructor():
-    return render_template("index.html")
+            flash('Game sucessfully created!', category='success')
+        return render_template('creategame.html')
+    else:
+        return redirect(url_for('index'))
 
-@app.route("/instructorView")
-@inst_login_required
-def instructorView():
-    return render_template("index.html")
+@app.route('/home/createdgames', methods=['GET','POST'])
+def createdgames():
+    if 'loggedin' in session and session["isInstruct"]:
+        instructid= session['id']
+        cur=mysql.connection.cursor()
+        cur.execute("SELECT * FROM Monitors where i_id = {};".format(instructid))
+        
+        userdetails=cur.fetchall()
+        return render_template('createdgames.html',userdetails=userdetails)
+    return redirect(url_for('login'))
 
 
-#-----------------------------------------------------------------------
-# Instructor Login
+@app.route('/home/joingame', methods=['GET','POST'])
+def joingame():
+    if 'loggedin' in session and not session['isInstruct']:
+        if request.method == 'POST' and 'role' in request.form and 'gameid' in request.form:
+            player_id=session['id']
+            # role1 = request.form['role']
+            gameid = request.form['gameid']
+            cur=mysql.connection.cursor()
+            cur.execute('INSERT INTO Plays_in VALUES (%s, %s);',(player_id,gameid))
+            mysql.connection.commit()
+            flash("Game Joined Sucessfully")
+        return render_template('joingame.html')
+    return redirect(url_for('index'))
 
-@app.route('/ins-login', methods=['GET', 'POST'])
-def ins_login():
-    if request.method == 'POST':
-        email = request.form.get('email')
-        password = request.form.get('password')
 
-        inst = Instructor.query.filter_by(email=email).first()
-        if inst:
-            if check_password_hash(inst.password, password):
-                session['logged_in'] = True
-                return redirect(url_for('instructor'))
-            else:
-                flash('Incorrect password, try again.', category='error')
+@app.route('/home/viewgames', methods=['GET','POST'])
+def viewgame():
+    if 'loggedin' in session and not session['isInstruct']:
+        player_id= session['id']
+        cur=mysql.connection.cursor()
+        cur.execute("SELECT * FROM Plays_in where p_id = {};".format(player_id))
+        userdetails=cur.fetchall()
+        return render_template('viewgames.html', userdetails=userdetails)
+    return redirect(url_for('index'))
+
+
+@app.route('/home/viewgamedetail', methods=['GET','POST'])
+def viewgamedetail():
+    if 'loggedin' in session and session['isInstruct']:
+        data =[]
+        instructid= session['id']
+        cur=mysql.connection.cursor()
+        cur.execute("SELECT g_id FROM Monitors where i_id = {};".format(instructid))
+        ids=cur.fetchall()
+        gameids=zip(*ids)
+        for gameid in gameids:
+            print(gameid)
+            for values in gameid:
+                cur.execute("SELECT * FROM Game where session_id= {} ;".format(values))
+                gamedetails= cur.fetchall()
+                data.append(gamedetails)
+        print(data)
+        return render_template('viewdetails.html', data=data)
+    return redirect(url_for('index'))
+
+
+@app.route('/home/modifygame/<int:id>', methods=['GET','POST'])
+def modifygame(id):
+    if 'loggedin' in session and session['isInstruct']:
+        if request.method=='GET':
+            cur=mysql.connection.cursor()
+            cur.execute("SELECT * FROM Game where session_id= {} ;".format(id))
+            gamedetails=cur.fetchone()
+            return render_template('modify.html', gamedetails=gamedetails)
+        elif request.method== 'POST':
+            #DB need to immplement here
+            return 'ok'
+    return redirect(url_for('login'))
+
+
+@app.route('/home/deletegame/<int:id>', methods=['GET','POST'])
+def deletegame(id):
+    if 'loggedin' in session and session['isInstruct']:
+        cur=mysql.connection.cursor()
+        cur.execute("DELETE FROM Game WHERE session_id = {};".format(id))
+        mysql.connection.commit()
+        flash("Game sucesfully deleted")
+        return render_template('createdgames.html')
+    return redirect(url_for('login'))
+
+@app.route('/home/entergame/<int:id>', methods=['GET','POST'])
+def entergame(id):
+    if 'loggedin' in session and not session['isInstruct']:
+        return "TO BE IMPLEMENETED"
+    return redirect(url_for('login'))
+
+@app.route('/home/leavegame/<int:id>', methods=['GET','POST'])
+def leavegame(id):
+    if 'loggedin' in session and not session['isInstruct']:
+        player_id=session['id']
+        cur=mysql.connection.cursor()
+        cur.execute("DELETE FROM Plays_In WHERE p_id = {} and g_id={};".format(player_id,id))
+        mysql.connection.commit()
+        flash("Game sucesfully left")
+        return render_template('viewgames.html')
+    return redirect(url_for('login'))
+
+@app.route('/home/createdemandpattern', methods=['GET','POST'])
+def createdemandpattern():
+    if 'loggedin' in session and session['isInstruct']:
+        return "TO BE IMPLEMENTED"
+    return redirect(url_for('login'))
+
+
+
+
+
+@app.route('/home')
+def home():
+    # Check if user is loggedin
+    if 'loggedin' in session:
+        # User is loggedin show them the home page
+        # mapping to check if instructor or player
+        if 'isInstruct' in session and session["isInstruct"]:
+            # return "instruot ok"
+            return render_template('instructor.html', name=session['name'])
         else:
-            flash('Email does not exist.', category='error')
-
-    return render_template("ins_login.html", user=current_user)
-
-
-#-----------------------------------------------------------------------
-# Student Login
-
-@app.route('/stud-login', methods=['GET', 'POST'])
-def stud_login():
-    if request.method == 'POST':
-        email = request.form.get('email')
-        password = request.form.get('password')
-
-        student = Student.query.filter_by(email=email).first()
-        if student:
-            if check_password_hash(student.password, password):
-                session['logged_in'] = True
-                return redirect(url_for('student'))
-            else:
-                flash('Your password is Incorrect, try again.', category='error')
-        else:
-            flash('Your Email does not exist.', category='error')
-
-    return render_template("stud_login.html", user=current_user)
-
-#-----------------------------------------------------------------------
-# Logouts
-
-@app.route('/stud-logout')
-@stud_login_required
-def stud_logout():
-    session.pop('logged_in', None)
-    flash('You are Logged Out')
-    return redirect(url_for('my_index'))
-
-@app.route('/inst-logout')
-@inst_login_required
-def inst_logout():
-    session.pop('logged_in', None)
-    flash('You are Logged Out')
-    return redirect(url_for('my_index'))
+            return render_template('player.html', name=session['name'])
+    # User is not loggedin redirect to login page
+    flash("You need to login first")
+    return redirect(url_for('login'))
 
 
-#-----------------------------------------------------------------------
-# Instructor Sign up
-
-@app.route('/ins-sign-up', methods=['GET', 'POST'])
-def ins_sign_up():
-    if request.method == 'POST':
-        email = request.form.get('email')
-        first_name = request.form.get('firstName')
-        password1 = request.form.get('password1')
-        password2 = request.form.get('password2')
-
-        inst = Instructor.query.filter_by(email=email).first()
-        if inst:
-            flash('Email already exists.', category='error')
-        elif password1 != password2:
-            flash('Passwords don\'t match.', category='error')
-        elif len(password1) < 7:
-            flash('Password must be at least 7 characters.', category='error')
-        else:
-            new_inst = Instructor(email=email, first_name=first_name, password=generate_password_hash(
-                password1, method='sha256'))
-            db.session.add(new_inst)
-            db.session.commit()
-            session['logged_in'] = True
-            flash('Account created!', category='success')
-            return redirect(url_for('instructor'))
-
-    return render_template("ins_sign_up.html", user=current_user)
-
-
-#-----------------------------------------------------------------------
-# Student Sign up
-
-@app.route('/stud-sign-up', methods=['GET', 'POST'])
-def stud_sign_up():
-    if request.method == 'POST':
-        email = request.form.get('email')
-        first_name = request.form.get('firstName')
-        password1 = request.form.get('password1')
-        password2 = request.form.get('password2')
-
-        student = Student.query.filter_by(email=email).first()
-        if student:
-            flash('Email already exists.', category='error')
-        elif password1 != password2:
-            flash('Passwords don\'t match.', category='error')
-        elif len(password1) < 7:
-            flash('Password must be at least 7 characters.', category='error')
-        else:
-            new_student = Student(email=email, first_name=first_name, password=generate_password_hash(
-                password1, method='sha256'))
-            db.session.add(new_student)
-            db.session.commit()
-            flash('Account created!', category='success')
-            session['logged_in'] = True
-            return redirect(url_for('student'))
-
-    return render_template("stud_sign_up.html", user=current_user)
 
 
 app.run(debug=True)

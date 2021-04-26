@@ -1,0 +1,23 @@
+{% extends 'layout.html' %}
+
+<!-- {% block title %}Home{% endblock %} -->
+
+{% block content %}
+<h2>Player Home Page</h2>
+<p>Welcome back, {{name}}!</p>
+
+
+<ul class="nav nav-tabs">
+    <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('viewgame') }}">View Joined Games</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('joingame') }}">Join a Game</a>
+    </li>
+
+</ul>
+
+<!-- {% block content4 %} {% endblock %} -->
+    <!-- {% block content5 %} {% endblock %} -->
+
+{% endblock %}

@@ -1,0 +1,55 @@
+{% extends 'player.html' %}
+<!-- {% block content5 %} -->
+{% with messages = get_flashed_messages(with_categories=true) %} {% if
+    messages %} {% for category, message in messages %} {% if category ==
+    'error' %}
+    <div class="alert alert-danger alert-dismissible fade show nomargin" role="alert">
+        {{ message }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    {% else %}
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        {{ message }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    {% endif %} {% endfor %} {% endif %} {% endwith %}
+
+<div id="card">
+<div id="createdgames" class="tab-pane active">
+    <h3> Joined Games</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Game #</th>
+                <th scope="col">Player ID</th>
+                <th scope="col">Enter Game</th>
+                <th scope="col">Leave Game</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in userdetails %} 
+            <tr>
+                <th scope="row">{{user[1]}}</th>
+                <td>{{user[0]}}</td>
+                <td>
+                    <form method="GET" action="{{ url_for('entergame', id= user[1]) }}">
+                        <button type="submit" class="btn btn-warning btn-sm"> Enter Game </button>
+                    </form>
+                </td>
+
+                <td>
+                <form method="GET" action="{{ url_for('leavegame', id= user[1]) }}">
+                    <button type="submit" class="btn btn-warning btn-sm"> Leave Game </button>
+                </form>
+            </td>
+            </tr>
+            {% endfor%}
+        </tbody>
+    </table>
+</div>
+</div>
+<!-- {% endblock %} -->

@@ -1,0 +1,100 @@
+{% extends 'instructor.html' %}
+
+<!-- {% block content2 %} -->
+<!-- <div class="tab-content"> -->
+{% with messages = get_flashed_messages(with_categories=true) %} {% if
+messages %} {% for category, message in messages %} {% if category ==
+'error' %}
+<div class="alert alert-danger alert-dismissible fade show nomargin" role="alert">
+    {{ message }}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+{% else %}
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+    {{ message }}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+{% endif %} {% endfor %} {% endif %} {% endwith %}
+
+<div id=card>
+    <div id="creategame" class="tab-pane active">
+        <h3> Create Game</h3>
+        <form action="{{ url_for('creategame') }}" method="POST">
+            <div class=row>
+                <div class=" col-md-6"">
+                <div class=" form-group">
+                    <label for="sessionlength">Session length</label>
+                    <input type="number" class="form-control" id="sessionlength" name="sessionlength"
+                        placeholder="Session length" required>
+                </div>
+            </div>
+            <div class=" col-md-6"">
+            <div class=" form-group">
+                <label for="backlogcost">Backlogcost</label>
+                <input type="number" class="form-control" id="backlogcost" name="backlogcost" placeholder="backlogcost"
+                    required>
+            </div>
+    </div>
+</div>
+<!-- </div> -->
+<div class=row>
+    <div class=" col-md-6"">
+            <div class=" form-group">
+        <label for="Holdingcost">Holding Cost</label>
+        <input type="number" class="form-control" id="Holdingcost" name="Holdingcost" placeholder="holdingcost"
+            required>
+    </div>
+</div>
+<div class=" col-md-6"">
+<div class=" form-group">
+    <label for="startinginventory">startinginventory</label>
+    <input type="number" class="form-control" id="startinginventory" name="startinginventory"
+        placeholder="startinginventory" required>
+</div>
+</div>
+</div>
+<div class=row>
+    <div class=" col-md-6"">
+        <div class=" form-group">
+        <label for="Roundscompleted">roundscompleted</label>
+        <input type="number" class="form-control" id="Roundscompleted" name="Roundscompleted"
+            placeholder="Roundscompleted" required>
+    </div>
+</div>
+<div class=" col-md-2"">
+<div class=" form-check">
+    <input class="form-check-input" type="checkbox" value="" id="Wholesaler" name="wholesalerp">
+    <label class="form-check-label" for="defaultCheck1">
+        Wholesaler Present
+    </label>
+</div>
+</div>
+<div class=" col-md-2"">
+<div class=" form-check">
+    <input class="form-check-input" type="checkbox" value="" id="Distributor" name="distributorp">
+    <label class="form-check-label" for="defaultCheck1">
+        Distributor Present
+    </label>
+</div>
+</div>
+<div class=" col-md-2"">
+<div class=" form-check">
+    <input class="form-check-input" type="checkbox" value="" id="Inforsharing" name="inforshare">
+    <label class="form-check-label" for="defaultCheck1">
+        Enable Inforsharing
+    </label>
+</div>
+</div>
+</div></br>
+<button type="submit" class="btn btn-warning" value="creategame">Submit</button>
+</form>
+<!-- <h2> From creategame penis</h2> -->
+</div>
+</div>
+<!-- </div> -->
+<!-- </div> -->
+<!-- {% endblock %} -->

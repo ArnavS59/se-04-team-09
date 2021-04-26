@@ -3,18 +3,19 @@ from flaskext.mysql import MySQL
 
 
 app = Flask(__name__)
-mysql = MySQL()
+mysql = MySQL(app)
 
 
 #Change user, password and dbname for your MySQL
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = 'Password@21'
+app.config['MYSQL_PASSWORD'] = 'asingh19'
 app.config['MYSQL_DB'] = 'testdb'
+app.config['SECRET_KEY'] = 'I am the Secret Key of this Beer Game Project'
 
 
-mysql.init_app(app)
-@app.route('/', methods=['POST', 'GET'])
+# mysql.init_app(app)
+# @app.route('/', methods=['POST', 'GET'])
 
 
 #------------------------------------------------------------------------------
@@ -140,7 +141,7 @@ if __name__ == "__main__":
         # Initialization
 
         def __init__(self, id = 'Default', name = 'Defualt', email = 'Default', password = 'Default', current_game = g, role=0):
-           
+        
             self.id = id
             self.name, self.email = name, email
             self.role = role 

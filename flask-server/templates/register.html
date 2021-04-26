@@ -11,14 +11,13 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
 
     <title>JUB Beer Game</title>
-<style>
-    body {
-      background-image: url("static/images/background.jpg");
-      background-color: #cccccc;
-      font-family: "Fira Sans", sans-serif;
-    }
-
-</style>
+    <style>
+        body {
+            background-image: url("static/images/background.jpg");
+            background-color: #cccccc;
+            font-family: "Fira Sans", sans-serif;
+        }
+    </style>
 </head>
 
 <body>
@@ -41,27 +40,37 @@
     </div>
     {% endif %} {% endfor %} {% endif %} {% endwith %}
     <h2>Welcome to the JUB Beer Game</h2>
-    <div>
-        <div class="login">
-            <h1>Login</h1>
-            <div class="links">
-                <a href="{{ url_for('login') }}" class="active">Login</a>
-                <a href="{{ url_for('register') }}" >Register</a>
-            </div>
-            <form action="{{ url_for('login') }}" method="POST">
-                <label for="email">
-                    <i class="fas fa-envelope"></i>
-                </label>
-                <input type="email" name="email" placeholder="Email" id="email" required>
-                <label for="password">
-                    <i class="fas fa-lock"></i>
-                </label>
-                <input type="password" name="password" placeholder="Password" id="password" required>
-                <div class="msg">{{ msg }}</div>
-                <input type="submit" value="Login">
-            </form>
+    <div class="register">
+        <h1>Register</h1>
+        <div class="links">
+            <a href="{{ url_for('login') }}">Login</a>
+            <a href="{{ url_for('register') }}" class="active">Register</a>
         </div>
-    </div>
+        <form action="{{ url_for('register') }}" method="POST">
+            <label for="name">
+                <i class="fas fa-user"></i>
+            </label>
+            <input type="text" name="name" placeholder="Username" id="name" required>
+            <label for="email">
+                <i class="fas fa-envelope"></i>
+            </label>
+            <input type="email" name="email" placeholder="Email" id="email" required>
+            <label for="password">
+                <i class="fas fa-lock"></i>
+            </label>
+            <input type="password" name="password" placeholder="Password" id="password" required>
+            <!-- Check if instructor is being logged -->
+            <div class="row" style=" width: 310px; height: 50px;">
+                <div class="col-md-6">
+                    <p>Register as an Instructor?</p>
+                </div>
+                <div class="col-md-6">
+                    <input type="checkbox" name="mycheck" , value="Instructor">
+                </div>
+            </div>
+            <div class="msg">{{ msg }}</div>
+            <input type="submit" value="Register">
+        </form>
 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
