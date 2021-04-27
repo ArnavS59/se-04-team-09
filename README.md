@@ -27,7 +27,7 @@ Note: To properly view this document use 8 character tabs.
 		Firstly start with > git clone https://github.com/lorenzorota/se-04-team-09.git
 		
 		1.2.1 Frontend/Backend:
-			cd into flaskapi folder
+			cd into flaskserver folder
 			> pip install -r requirements.txt
 			> python main.py
 		
@@ -38,7 +38,7 @@ Note: To properly view this document use 8 character tabs.
 			You can use the command > show tables; to make sure the tables were added into the db. 
 
 		1.2.3 Test Cases:
-				> cd into flaskapi
+				> cd into flaskserver
 				> python3 tests.py
 ----------------------------------------------------------------------------------------------------------------------
 2. HOW TO USE
