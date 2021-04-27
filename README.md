@@ -18,6 +18,7 @@ Note: To properly view this document use 8 character tabs.
 
 		MySQL version : 8.0.23
 		Use :
+		Make sure to have sql 
 		> sudo apt-get install mysql-server
 		> sudo secure_mysql_installation
 
@@ -34,7 +35,7 @@ Note: To properly view this document use 8 character tabs.
 		1.2.2 Database initialization:
 			Enter mysql in the machine: > sudo mysql -u root -p
 			Enter your password
-			Goto Database Folder and copy paste the contents of schema.sql into the sql terminal
+			Goto Database Folder and copy paste the contents of schemasql.sql into the sql terminal
 			You can use the command > show tables; to make sure the tables were added into the db. 
 
 		1.2.3 Test Cases:
@@ -45,7 +46,6 @@ Note: To properly view this document use 8 character tabs.
 	
 	2.1 Landing Page
 	
-		There will be 4 buttons which lead to 4 paths from here.
 		You can choose to signin or signup either as a student or a professor.
 		 
 	2.2 Signin Page
@@ -61,7 +61,7 @@ Note: To properly view this document use 8 character tabs.
 
 	2.4 Instructor View
 
-		2.4.1 Creating Games (Non-functional)
+		2.4.1 Creating Games (Functional)
 
 			Choose prefered settings for the game.
 			Time Delay is used for the delay in communication.
@@ -70,7 +70,7 @@ Note: To properly view this document use 8 character tabs.
 			Press Freeze button to stop the current game.
 			Press Inspect Games button to inspect the games.
 		
-		2.4.2 Inspect Games (Non-functional)
+		2.4.2 Inspect Games (Functional)
 			
 			Show the statistics of the current games.
 			Press Plot button to plot the graph for the costs of the selected game.
@@ -78,7 +78,7 @@ Note: To properly view this document use 8 character tabs.
 			
 	2.5 Student View
 				
-		2.5.1 Pre-Game Page (Non-functional)
+		2.5.1 Pre-Game Page (Functional)
 			
 			Shows your game password and position.
 			If not registered you can press register now.
@@ -116,14 +116,6 @@ Note: To properly view this document use 8 character tabs.
 			Press Go to Graph button to go to Graph Page.
 			Press Check Others' Order button to go to Others' Order Page.
 
-	2.6 Database API server side:
-
-		This is not yet functional.
-	
-	2.7 Database API backend side:
-
-		It can be run with the instruction given above.
-		Test cases are done automatically. Results can be seen by accessing the database through mysql shell.
 ----------------------------------------------------------------------------------------------------------------------
 3. Code Strucutre
 
@@ -135,12 +127,7 @@ Note: To properly view this document use 8 character tabs.
 	3.2 File Strucutre
 		
 		Database .sql code is found in the "Database" folder.
-		Database backend & serverside code is found in "Database API" folder, one can find all the functionalities here.
-		Combined project can be found in "flask-server" folder.
-			"flask-server" folder follows the default folder structure of any flask created server. 
-			Frontend is found in templates.
-		Different Frontend Templates can be found at "Frontend Templates" Folder.
-		Previous sprint contribution is found in "Sprint 1+2"
+		Database backend & serverside code is found in "flaskserver" folder, one can find all the functionalities here.
 -----------------------------------------------------------------------------------------------------------------------
 4. Worklogs
 
@@ -161,16 +148,19 @@ Note: To properly view this document use 8 character tabs.
 		03		05/04/21	Documentation Improvement.
 		
 	Note for TAs: Due to lack of documentation, we could not make the program work so we used our code from previous sprints to make progress in this group.
-------------------------------------------------------------------------------------------------------------------------
-5. Future Insight
+	
+	4.3 Sprint 4
+		
+		Arnav Singh & Petri Gjoni
+		# se-04-team-9
+		SE Sprint 04, Team 9
+		
+		Sprint #	Date		Contribution
+		04		27/04/21 	All contributions in the Sprint4Documenation.pdf file
+		
+		:)
 
-	5.1 Insight for Second Sprint
-
-		Expand the Combined project.
-		Add the functionalities of app.py
-		Try and connect flask-server with the MySQL database.
-------------------------------------------------------------------------------------------------------------------------
-
+-----------------------------------------------------------------------------------------------------------------------
 
 		
 
