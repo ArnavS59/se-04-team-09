@@ -48,8 +48,12 @@ CREATE TABLE Round_History (
 	week INT,
 	inventory INT,
 	backorder INT,
-	order_request INT,
+	order_placed INT,
+	-- incoming shippments INT,
+	-- outgoing shippments INT,
+	-- cost INT,
 	shipped_out INT,
+
 	FOREIGN KEY (p_id) REFERENCES Player(id) ON DELETE CASCADE
 );
 
@@ -62,12 +66,12 @@ CREATE TABLE Demand_Pattern (
 	PRIMARY KEY (id)
 );
 
-CREATE TABLE Demand (
-	pattern_id INT NOT NULL,
-	week INT NOT NULL,
-	demand INT NOT NULL,
-	FOREIGN KEY (pattern_id) REFERENCES Demand_Pattern(id) ON DELETE CASCADE
-);
+-- CREATE TABLE Demand (
+-- 	pattern_id INT NOT NULL,
+-- 	week INT NOT NULL,
+-- 	demand INT NOT NULL,
+-- 	FOREIGN KEY (pattern_id) REFERENCES Demand_Pattern(id) ON DELETE CASCADE
+-- );
 
 CREATE TABLE Instructs (
 	i_id INT NOT NULL,
@@ -97,6 +101,7 @@ CREATE TABLE Used_In (
 CREATE TABLE Plays_In (
 	p_id INT NOT NULL,
 	g_id INT NOT NULL,
+	role INT NOT NULL,
 	FOREIGN KEY (p_id) REFERENCES Player(id) ON DELETE CASCADE,
 	FOREIGN KEY (g_id) REFERENCES Game(session_id) ON DELETE CASCADE,
 	PRIMARY KEY (p_id,g_id)

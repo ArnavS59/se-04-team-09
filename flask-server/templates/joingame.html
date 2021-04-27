@@ -1,7 +1,6 @@
 {% extends 'player.html' %}
 
 <!-- {% block content4%} -->
-
 <!-- <div class="tab-content"> -->
     {% with messages = get_flashed_messages(with_categories=true) %} {% if
         messages %} {% for category, message in messages %} {% if category ==
@@ -36,10 +35,10 @@
             <div class=" form-group">
             <label for="role">Role</label>
             <select class="form-control" name="role" required>
-                <option value="consumer">Consumer</option>
-                <option value="retialer">Retailer</option>
-                <option value="Wholesaler">Wholesaler</option>
-                <option value="Distributor">Distributor</option>
+                <option value="1">Consumer</option>
+                <option value="2">Retailer</option>
+                <option value="3">Wholesaler</option>
+                <option value="4">Distributor</option>
             </select>
         </div>
 </div>

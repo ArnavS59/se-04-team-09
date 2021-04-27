@@ -25,7 +25,7 @@
         <thead>
             <tr>
                 <th scope="col">Game #</th>
-                <th scope="col">Player ID</th>
+                <th scope="col">Role</th>
                 <th scope="col">Enter Game</th>
                 <th scope="col">Leave Game</th>
             </tr>
@@ -34,7 +34,15 @@
             {% for user in userdetails %} 
             <tr>
                 <th scope="row">{{user[1]}}</th>
-                <td>{{user[0]}}</td>
+                {% if (user[2]== 1): %}
+                    <td>Consumer</td>
+                {% elif (user[2]== 2): %}
+                    <td>Retialer</td>
+                {% elif (user[2]== 3): %}
+                    <td>Wholesaler</td>
+                {% elif (user[2]== 4): %}
+                    <td>Distributor</td>
+                {% endif %}
                 <td>
                     <form method="GET" action="{{ url_for('entergame', id= user[1]) }}">
                         <button type="submit" class="btn btn-warning btn-sm"> Enter Game </button>

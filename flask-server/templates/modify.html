@@ -1,0 +1,125 @@
+{% extends 'layout.html' %}
+
+{% block content8%}
+<!-- <div> -->
+    {% with messages = get_flashed_messages(with_categories=true) %} {% if
+        messages %} {% for category, message in messages %} {% if category ==
+        'error' %}
+        <div class="alert alert-danger alert-dismissible fade show nomargin" role="alert">
+            {{ message }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        {% else %}
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        {% endif %} {% endfor %} {% endif %} {% endwith %}
+    <!-- </div> -->
+    <div id="card">
+    <div id="creategame" class="tab-pane active">
+    <h3> Current Game Parameters</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Game #</th>
+                <th scope="col">Game Length</th>
+                <th scope="col">Rounds Completed</th>
+                <th scope="col">Holding Cost</th>
+                <th scope="col">Backlog Cost</th>
+                <th scope="col">Starting inventory</th>
+                <th scope="col">Info sharing?</th>
+                <th scope="col">Distributor Present?</th>
+                <th scope="col">Wholesaler Present?</th>
+            </tr>
+        </thead>
+    </br>
+        <tbody>
+            <tr>
+                <th scope="row">{{gamedetails[0]}}</th>
+                <td>{{gamedetails[1]}}</td>
+                <td>{{gamedetails[7]}}</td>  
+                <td>{{gamedetails[4]}}</td>
+                <td>{{gamedetails[5]}}</td>
+                <td>{{gamedetails[8]}}</td>
+                <td>{{gamedetails[6]}}</td>
+                <td>{{gamedetails[2]}}</td> 
+                <td>{{gamedetails[3]}}</td>
+            </tr>
+        </tbody>
+    </table>
+    </div>
+    <h4> Modify Game Parameters</h4>
+    <form action="{{ url_for('modifygame' , id=gamedetails[0] ) }}" method="POST">
+        <div class=row>
+            <div class=" col-md-6"">
+                <div class=" form-group">
+                <label for="sessionlength">Session length</label>
+                <input type="number" class="form-control" id="sessionlength" name="sessionlength" placeholder="Session length" required>
+            </div>
+        </div>
+        <div class=" col-md-6"">
+            <div class=" form-group">
+            <label for="backlogcost">Backlogcost</label>
+            <input type="number" class="form-control" id="backlogcost" name="backlogcost" placeholder="backlogcost" required>
+        </div>
+</div>
+</div>
+<!-- </div> -->
+<div class=row>
+    <div class=" col-md-6"">
+            <div class=" form-group">
+        <label for="Holdingcost">Holding Cost</label>
+        <input type="number" class="form-control" id="Holdingcost" name="Holdingcost" placeholder="holdingcost" required>
+    </div>
+</div>
+<div class=" col-md-6"">
+<div class=" form-group">
+    <label for="startinginventory">startinginventory</label>
+    <input type="number" class="form-control" id="startinginventory" name="startinginventory" placeholder="startinginventory" required>
+</div>
+</div>
+</div>
+<div class=row>
+    <div class=" col-md-6"">
+        <div class=" form-group">
+        <label for="Roundscompleted">roundscompleted</label>
+        <input type="number" class="form-control" id="Roundscompleted" name="Roundscompleted" placeholder="Roundscompleted" required>
+    </div>
+</div>
+<div class=" col-md-2"">
+<div class=" form-check">
+    <input class="form-check-input" type="checkbox" value="" id="Wholesaler" name="wholesalerp">
+    <label class="form-check-label" for="defaultCheck1">
+        Wholesaler Present
+    </label>
+</div>
+</div>
+<div class=" col-md-2"">
+<div class=" form-check">
+    <input class="form-check-input" type="checkbox" value="" id="Distributor" name="distributorp">
+    <label class="form-check-label" for="defaultCheck1">
+        Distributor Present
+    </label>
+</div>
+</div>
+<div class=" col-md-2"">
+<div class=" form-check">
+    <input class="form-check-input" type="checkbox" value="" id="Inforsharing" name="inforshare">
+    <label class="form-check-label" for="defaultCheck1">
+        Enable Inforsharing
+    </label>
+</div>
+</div>
+</div></br>
+<button type="submit" class="btn btn-warning" value="creategame">Submit</button>
+</form>
+<!-- <h2> From creategame penis</h2> -->
+</div>
+
+</div>
+{% endblock%}

@@ -1,0 +1,134 @@
+
+<html>
+    <head>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+        <link rel="stylesheet" href="{{ url_for('static', filename='test.css') }}">
+    </head>
+    <body>
+        <div class="aqua pull-left" id="box">
+                    <div class="auth-wrapper">
+                        <h5 class="centered">For Week 1</h5>
+                        <br/>
+
+                        <table class="table table-bordered table-sm">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <p>Begining Inventory : <b> 0</b> </p> 
+                                        <p>Incoming Shipment : <b class="red">1</b> </p> 
+                                        <p>On Total Requirement : <b class="blue">1</b> </p> 
+                                    </td>
+                                    <td>
+                                        <p>Demand from Distributor : <b> 1</b> </p> 
+                                        <p>On Backorder : <b class="green">4</b> </p> 
+                                        <p>Total Available : <b class="blue">5</b> </p>
+                                    </td>
+                                    
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p class="centered">Units Shipped to Distributor this week : <b class="green">4</b></p>
+                        <p class="centered">Ending inventory <b class="blue">2</b></p>
+                        <br/>
+                        <p class="cetered">Enter the number of units to be purchased from Brewery : <input type="number" id="unitsShipped" class="mytext"></input></p>
+                        <button type="submit" class="btn btn-warning">Place Order</button>
+                    </div>
+
+            
+                    
+                </div>
+
+
+        <div class="blue pull-right" id="box">
+                <div class="auth-wrapper">
+                    
+                        <h5>FACTORY INFROMATION FOR THE LAST TEN WEEKS</h5>
+                        <br/>
+
+                        <table class="table table-striped table-bordered table-sm">
+                            <thead>
+                                <tr>
+                                    <th>Week</th>
+                                    <th>Inv/Bk</th>
+                                    <th>Demand</th>
+                                    <th>Incom. ship</th>
+                                    <th>Outg. ship</th>
+                                    <th>Order Placed</th>
+                                    <th>Current cost</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>0</td>
+                                    <td>3</td>
+                                    <td>0</td>
+                                    <td>1</td>
+                                    <td>2</td>
+                                    <td>2</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                
+                </div>
+
+                
+
+
+        </div>
+
+        <div class="green pull-left bottom" id="box">
+
+            <div class="auth-wrapper">
+                        
+                <h5 class="centered">Status of other Supply Chain Channel Members Game {gameNo}</h5>
+                <i>This page will update automatically after a period of time.</i>
+
+                <br/>
+                <br/>
+                <p>When all players have completed the order for the current week,</p>
+                <p>the player will automatically receive a link to procede to next week.</p>
+
+                <br/>
+
+                <h6>Week 1</h6>
+                <p>Factory: <b>{factoryOrder ? "Has ordered" : "Has not ordered"}</b></p>
+                <p>Distributor: <b>{distributorOrder ? "Has ordered" : "Has not ordered"}</b></p>
+
+            </div>
+        </div>
+
+
+        </div>
+
+        <div class="tan pull-right bottom" id="box">
+            <div class="auth-wrapper tilt-up">
+                <h5>Inventory and Order Status plots For Factory</h5>
+                
+                <br/>
+                <p>
+                    <button class="btn btn-warning">Demand plot</button> 
+                    <button class="btn btn-warning">Order plot</button>
+                    <button class="btn btn-warning">Inv/Backorderplot</button> 
+                    <button class="btn btn-warning">Plot all</button>
+                </p>
+                <b>Supply Chain Settings for Factory:</b></br>
+                Holding cost : <b>{holdingCost}</b></br>
+                Backorder cost : <b>{backorderCost}</b></br>
+                Downstream player : <i class= "red">{downstream}</i></br>
+                Upstream player : <i class= "green">{upstream}</i></br>
+            </br>
+                <p>
+                    Shipping Dealy : <b class="red">{shipDelay1} wks</b> ({current} -> {downstream})
+                    <b class="red"> {shipDelay2} wks</b> ({upstream} -> {current})
+                </p>
+                <p>
+                    Information Dealy : <b class="green">{infoDelay1} wks</b> ({downstream} -> {current})
+                    <b class="red"> {infoDelay2} wks</b> ({current} -> {upstream})
+                </p>
+            </div>
+            </div>
+        </div>
+    </body>
+</html>
