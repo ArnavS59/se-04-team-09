@@ -5,8 +5,6 @@ import json
 from functools import wraps
 from flask_mysqldb import MySQL
 
-# -----------------------------------------------------------------------
-# Temporary working with database.db
 
 import re
 app = Flask(__name__)
@@ -14,7 +12,7 @@ app = Flask(__name__)
 app.config['MYSQL_HOST'] = "localhost"
 app.config['MYSQL_USER'] = "root"
 app.config['MYSQL_PASSWORD'] = "asingh19"
-app.config['MYSQL_DB'] = "flaskapp5"
+app.config['MYSQL_DB'] = "flaskapp"
 app.config['SECRET_KEY'] = 'I am the Secret Key of this Beer Game Project'
 
 mysql = MySQL(app)
@@ -41,12 +39,6 @@ def login():
             session['id'] = account[0]
             session['name'] = account[1]
             session['isInstruct'] = account[4]
-            # print(session['isInstruct'])
-            # if account[4]==1:
-            #     return render_template('instructorview.html')
-            # # session['email'] = account[3]
-            #     # Redirect to home page
-            # else:
             return redirect(url_for('home'))
         else:
             # Account doesnt exist or username/password incorrect
@@ -411,5 +403,5 @@ def getGamedetails(id):
         5], roundcompleted = gamedetails[7], startinv = gamedetails[8]
     return length, holdingcost, backlogcost, roundcompleted, startinv
 
-
-app.run(debug=True)
+if __name__ == '__main__':
+    app.run(debug=True)
